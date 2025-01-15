@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+    <View
+        android:id="@+id/colorarriba"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:background="@android:color/holo_green_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textorutero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RUTERO"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@id/colorarriba"
+        app:layout_constraintEnd_toEndOf="@id/colorarriba"
+        app:layout_constraintStart_toStartOf="@id/colorarriba"
+        app:layout_constraintTop_toTopOf="@id/colorarriba" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login_bttn"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="496dp"
+        android:layout_marginEnd="152dp"
+        android:text="Enviar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toTopOf="@id/colorarriba"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

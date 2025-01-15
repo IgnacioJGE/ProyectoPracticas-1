@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <View
+        android:id="@+id/colorarriba"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:background="@android:color/holo_green_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textorutero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RUTERO"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@id/colorarriba"
+        app:layout_constraintEnd_toEndOf="@id/colorarriba"
+        app:layout_constraintStart_toStartOf="@id/colorarriba"
+        app:layout_constraintTop_toTopOf="@id/colorarriba" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/inicio"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:hint="Destino"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/colorarriba"
+        app:layout_constraintVertical_bias="0.034"
+        tools:ignore="InvalidId" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/parada"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:hint="Parada"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/colorarriba"
+        app:layout_constraintVertical_bias="0.125"
+        tools:ignore="InvalidId" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/fin"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:hint="Inicio"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/colorarriba"
+        app:layout_constraintVertical_bias="0.034"
+        tools:ignore="InvalidId" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/generar_ruta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BUSCAR"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.963" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add"
+        android:layout_width="74dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="188dp"
+        android:layout_marginBottom="552dp"
+        android:textAlignment="center"
+        android:text="+"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
