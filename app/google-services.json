@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "997658589416",
+    "project_id": "rutero-70998",
+    "storage_bucket": "rutero-70998.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997658589416:android:35a6278323de3d38b3f15d",
+        "android_client_info": {
+          "package_name": "com.example.proyectopracticas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMhDdwwmaDpvw9BLUk4u0Exe-IgtCu32w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
