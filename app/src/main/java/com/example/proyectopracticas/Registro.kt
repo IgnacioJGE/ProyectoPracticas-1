@@ -1,5 +1,4 @@
 package com.example.proyectopracticas
-package com.example.firebasefirestore
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.gms.google-services")
+    alias(libs.plugins.googleServices)
 }
 
 android {
@@ -55,4 +55,5 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
     implementation( libs.firebase.firestore)
+    implementation(libs.firebase.auth)
 }
