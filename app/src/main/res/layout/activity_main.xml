@@ -27,7 +27,6 @@
         app:layout_constraintStart_toStartOf="@id/colorarriba"
         app:layout_constraintTop_toTopOf="@id/colorarriba" />
 
-
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/inicio"
         android:layout_width="130dp"
@@ -82,16 +81,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.963" />
 
-    <LinearLayout
-        android:id="@+id/linear_layout"
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add"

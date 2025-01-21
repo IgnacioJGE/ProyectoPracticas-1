@@ -28,7 +28,7 @@ class Registro : AppCompatActivity() {
         val error= findViewById<TextView>(R.id.error)
         reg_bttn.setOnClickListener{
             if(user.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()){
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(user.text.toString(),
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.text.toString(),
                     pass.text.toString()).addOnCompleteListener{
                         if(it.isSuccessful){
                                 llevaralmain(user.text.toString())

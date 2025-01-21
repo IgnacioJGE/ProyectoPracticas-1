@@ -25,10 +25,11 @@
         app:layout_constraintEnd_toEndOf="@id/colorarriba"
         app:layout_constraintStart_toStartOf="@id/colorarriba"
         app:layout_constraintTop_toTopOf="@id/colorarriba" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/reg_bttn"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="133dp"
+        android:layout_height="46dp"
         android:layout_marginTop="496dp"
         android:layout_marginEnd="152dp"
         android:text="Registrarse"

@@ -34,7 +34,7 @@ class Login : AppCompatActivity() {
         }
         login_bttn.setOnClickListener{
             if(user.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()){
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.text.toString(),
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(user.text.toString(),
                     pass.text.toString()).addOnCompleteListener{
                     if(it.isSuccessful){
                         llevaralmain(user.text.toString())
