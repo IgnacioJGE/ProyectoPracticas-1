@@ -25,8 +25,7 @@
         app:layout_constraintBottom_toBottomOf="@id/colorarriba"
         app:layout_constraintEnd_toEndOf="@id/colorarriba"
         app:layout_constraintStart_toStartOf="@id/colorarriba"
-        app:layout_constraintTop_toTopOf="@id/colorarriba" />
-
+        app:layout_constraintTop_toTopOf="@id/colorarriba"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_bttn"
         android:layout_width="100dp"

@@ -1,4 +1,5 @@
 package com.example.proyectopracticas
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -27,16 +28,22 @@ class Registro : AppCompatActivity() {
         val error= findViewById<TextView>(R.id.error)
         reg_bttn.setOnClickListener{
             if(user.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()){
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.text.toString(),
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(user.text.toString(),
                     pass.text.toString()).addOnCompleteListener{
                         if(it.isSuccessful){
-
+                                llevaralmain(user.text.toString())
                         }else{
                             error.setText("Error al Registrarse")
                         }
                 }
             }
         }
+    }
+    private fun llevaralmain(email: String){
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("email",email)
+        }
+        startActivity(intent)
     }
 
 
