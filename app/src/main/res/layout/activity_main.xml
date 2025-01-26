@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="@id/colorarriba" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/inicio"
+        android:id="@+id/fin"
         android:layout_width="130dp"
         android:layout_height="40dp"
         android:hint="Destino"
@@ -41,22 +41,21 @@
         app:layout_constraintVertical_bias="0.034"
         tools:ignore="InvalidId" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/parada"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:hint="Parada"
-        android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:id="@+id/paradas"
+        android:layout_width="411dp"
+        android:layout_height="59dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/map"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/colorarriba"
-        app:layout_constraintVertical_bias="0.125"
-        tools:ignore="InvalidId" />
+        app:layout_constraintTop_toBottomOf="@id/btn_add"
+        app:layout_constraintVertical_bias="0.809"
+        android:gravity="center_horizontal"/>
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/fin"
+        android:id="@+id/inicio"
         android:layout_width="130dp"
         android:layout_height="40dp"
         android:hint="Inicio"
@@ -69,6 +68,7 @@
         app:layout_constraintVertical_bias="0.034"
         tools:ignore="InvalidId" />
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/generar_ruta"
         android:layout_width="wrap_content"
@@ -78,31 +78,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
-
+        app:layout_constraintTop_toBottomOf="@+id/map"
+        app:layout_constraintVertical_bias="0.513" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="455dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57" />
+        app:layout_constraintVertical_bias="0.688" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add"
-        android:layout_width="74dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="652dp"
-        android:text="+"
+        android:layout_width="84dp"
+        android:layout_height="45dp"
+        android:text="Añadir parada"
         android:textAlignment="center"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="9sp"
+        app:layout_constraintBottom_toTopOf="@id/paradas"
+        app:layout_constraintEnd_toStartOf="@id/fin"
+        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintStart_toEndOf="@id/inicio"
+        app:layout_constraintTop_toBottomOf="@id/colorarriba"
+        app:layout_constraintVertical_bias="0.162" />
 </androidx.constraintlayout.widget.ConstraintLayout>
