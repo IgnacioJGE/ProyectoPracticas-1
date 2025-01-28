@@ -19,6 +19,7 @@ playServicesMaps = "19.0.0"
 services= "4.4.2"
 auth="22.0.0"
 analytics= "21.4.0"
+utils= "2.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,6 +39,7 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
+android-maps-utils={module= "com.google.maps.android:android-maps-utils",version.ref="utils"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
