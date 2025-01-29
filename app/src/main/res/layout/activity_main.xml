@@ -43,16 +43,16 @@
 
     <LinearLayout
         android:id="@+id/paradas"
-        android:layout_width="411dp"
-        android:layout_height="59dp"
+        android:layout_width="400dp"
+        android:layout_height="62dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_add"
-        app:layout_constraintVertical_bias="0.809"
-        android:gravity="center_horizontal"/>
+        app:layout_constraintTop_toBottomOf="@id/btn_menos"
+        app:layout_constraintVertical_bias="0.809" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/inicio"
@@ -86,12 +86,25 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="455dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tiempo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paradas"
         app:layout_constraintVertical_bias="0.688" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_menos"
+        android:layout_width="84dp"
+        android:layout_height="45dp"
+        android:text="Quitar parada"
+        android:textAlignment="center"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toTopOf="@id/map"
+        app:layout_constraintEnd_toStartOf="@id/fin"
+        app:layout_constraintStart_toEndOf="@id/inicio"
+        app:layout_constraintTop_toBottomOf="@id/colorarriba"
+        app:layout_constraintVertical_bias="0.353" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add"
@@ -100,10 +113,18 @@
         android:text="Añadir parada"
         android:textAlignment="center"
         android:textSize="9sp"
-        app:layout_constraintBottom_toTopOf="@id/paradas"
+        app:layout_constraintBottom_toTopOf="@id/btn_menos"
         app:layout_constraintEnd_toStartOf="@id/fin"
-        app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toEndOf="@id/inicio"
         app:layout_constraintTop_toBottomOf="@id/colorarriba"
-        app:layout_constraintVertical_bias="0.162" />
+        app:layout_constraintVertical_bias="0.592" />
+    <TextView
+        android:id="@+id/tiempo"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/map"
+        app:layout_constraintBottom_toTopOf="@id/generar_ruta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,34 +26,37 @@
         app:layout_constraintEnd_toEndOf="@id/colorarriba"
         app:layout_constraintStart_toStartOf="@id/colorarriba"
         app:layout_constraintTop_toTopOf="@id/colorarriba"/>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_bttn"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginTop="496dp"
         android:layout_marginEnd="152dp"
+        android:layout_marginBottom="84dp"
         android:text="Enviar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/user"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginTop="172dp"
         android:hint="Usuario"
+        android:minWidth="150dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/colorarriba" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/pass"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="252dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginTop="256dp"
         android:hint="Contraseña"
+        android:minWidth="150dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/colorarriba" />
 
     <TextView

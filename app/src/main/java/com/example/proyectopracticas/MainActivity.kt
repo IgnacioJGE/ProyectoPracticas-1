@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var gMap: GoogleMap
     private val editTextList = mutableListOf<EditText>()
-    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,9 +42,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val analytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         val  incio= findViewById<AppCompatEditText>(R.id.inicio)
+        val tem= findViewById<TextView>(R.id.tiempo)
         val  fin= findViewById<AppCompatEditText>(R.id.fin)
         val container = findViewById<LinearLayout>(R.id.paradas)
         val bttn = findViewById<AppCompatButton>(R.id.btn_add)
+        val bttn2 = findViewById<AppCompatButton>(R.id.btn_menos)
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         val busqueda = findViewById<AppCompatButton>(R.id.generar_ruta)
         mapFragment.getMapAsync(this)//ASI SE AÑADE EL MAPA AL FRAGMET
@@ -58,12 +61,19 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         setMargins(60, 16, 60, 16)
                     }
                     hint = "Parada"
+                    maxWidth = 250
                 }
                 container.addView(newEditText)
                 editTextList.add(newEditText)
             }
 
 
+        }
+        bttn2.setOnClickListener{
+            if(editTextList.size>=1){
+                container.removeView(editTextList[editTextList.size-1])
+                editTextList.removeAt(editTextList.size-1)
+            }
         }
         busqueda.setOnClickListener{
             if(incio.text.toString().isEmpty()||fin.text.toString().isEmpty()){
@@ -78,17 +88,17 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     val origen = LatLng(actual[0].latitude, actual[0].longitude)
                     val destino = LatLng(final[0].latitude, final[0].longitude)
                     try {
-                        lifecycleScope.launch {
+                        lifecycleScope.launch {//necesario pòr ser un fragmet
+
                             // Llamamos a la API para obtener la ruta
-                            val puntosRuta = obtenerRuta(origen, destino)
+                            val (puntosRuta,tiempo) = obtenerRuta(origen, destino)
 
                             // Cuando obtenemos los puntos, los mostramos en el mapa
                             if (puntosRuta.isNotEmpty()) {
                                 mostrarRutaEnMapa(puntosRuta)
                             }
+                            tem.setText(tiempo)
                         }
-
-
                     } catch (e: Exception) {
                         showAlert("Campos incorrectos")
                     }
@@ -124,7 +134,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private suspend fun obtenerRuta(origen: LatLng, destino: LatLng): List<LatLng> {
+    private suspend fun obtenerRuta(origen: LatLng, destino: LatLng,parada: LatLng?= null,parada2:LatLng?=null): Pair<List<LatLng>,String> {
         var url: String=""
         when (editTextList.size) {
             0 -> {
@@ -132,6 +142,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         "origin=${origen.latitude},${origen.longitude}" +
                         "&destination=${destino.latitude},${destino.longitude}" +
                         "&mode=driving" +
+                        "&language=es" +
                         "&key=AIzaSyB1Jr_zKzt5aAxmdCGDT1hm7bgPwJ7sXcU"
 
 
@@ -147,6 +158,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         "&destination=${destino.latitude},${destino.longitude}" +
                         "&waypoints=via:${parada[0].latitude},${parada[0].longitude}" +
                         "&mode=driving" +
+                        "&language=es" +
                         "&key=AIzaSyB1Jr_zKzt5aAxmdCGDT1hm7bgPwJ7sXcU"
             }
         }
@@ -164,6 +176,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                             "&waypoints=via:${parada[0].latitude},${parada[0].longitude}|" +
                             "via:${parada2[0].latitude},${parada2[0].longitude}"+
                             "&mode=driving" +
+                            "&language=es" +
                             "&key=AIzaSyB1Jr_zKzt5aAxmdCGDT1hm7bgPwJ7sXcU"
                 }
 
@@ -183,6 +196,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                             "via:${parada2[0].latitude},${parada2[0].longitude}|"+
                             "via:${parada3[0].latitude},${parada3[0].longitude}"+
                             "&mode=driving" +
+                            "&language=es" +
                             "&key=AIzaSyB1Jr_zKzt5aAxmdCGDT1hm7bgPwJ7sXcU"
                 }
             }
@@ -191,22 +205,31 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         "origin=${origen.latitude},${origen.longitude}" +
                         "&destination=${destino.latitude},${destino.longitude}" +
                         "&mode=driving" +
+                        "&language=es" +
                         "&key=AIzaSyB1Jr_zKzt5aAxmdCGDT1hm7bgPwJ7sXcU"
             }
         }
         return withContext(Dispatchers.IO) {
             try {
                 val response = URL(url).readText()//lee la respuesta
-                Log.d("CACA","${response}")
+                val tiempo= JSONObject(response)
+                    .getJSONArray("routes")
+                    .getJSONObject(0)
+                    .getJSONArray("legs")
+                    .getJSONObject(0)
+                    .getJSONObject("duration")
+                    .getString("text")
                 val puntos = JSONObject(response)//combierte en jsonobject
                     .getJSONArray("routes")//combierte en jsonobject
                     .getJSONObject(0)//el primero del array es la ruta
                     .getJSONObject("overview_polyline")
                     .getString("points")//obtiene la lista de puntos
-                PolyUtil.decode(puntos)//lo convierte en una lista de latlongs
+
+                val latLngList =PolyUtil.decode(puntos)//lo convierte en una lista de latlongs
+                Pair(latLngList , tiempo)
             } catch (e: Exception) {
                 e.printStackTrace()
-                emptyList<LatLng>()
+                Pair(emptyList<LatLng>(), "")
             }
         }
 
@@ -215,15 +238,86 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         if (puntosRuta.isEmpty()) {
             showAlert("Campos incorrectos")
         } else {
-            val polylineoptions = PolylineOptions()
-                .addAll(puntosRuta)
-                .color(android.graphics.Color.BLUE)
-                .width(10f)
-            gMap.clear()
-            gMap.addPolyline(polylineoptions)
-            gMap.addMarker(MarkerOptions().position(puntosRuta.first()))
-            gMap.addMarker(MarkerOptions().position(puntosRuta.last()))
-            gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puntosRuta.first(), 12f))
+            when (editTextList.size){
+                0->{
+                    val polylineoptions = PolylineOptions()
+                        .addAll(puntosRuta)
+                        .color(android.graphics.Color.BLUE)
+                        .width(10f)
+                    gMap.clear()
+                    gMap.addPolyline(polylineoptions)
+                    gMap.addMarker(MarkerOptions().position(puntosRuta.first()))
+                    gMap.addMarker(MarkerOptions().position(puntosRuta.last()))
+                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puntosRuta.first(), 12f))
+                }
+                1->{
+                    val geocoder = Geocoder(this, Locale.getDefault())//no es nada optimo tener que hacer esto dos veces
+                    val parada = geocoder.getFromLocationName(editTextList[0].text.toString(), 1)
+                    if(parada.isNullOrEmpty()) {
+                        showAlert("Campos incorrectos")
+                    }else{
+                        val polylineoptions = PolylineOptions()
+                            .addAll(puntosRuta)
+                            .color(android.graphics.Color.BLUE)
+                            .width(10f)
+
+                        gMap.clear()
+                        gMap.addPolyline(polylineoptions)
+                        gMap.addMarker(MarkerOptions().position(LatLng(parada[0].latitude, parada[0].longitude)).icon(
+                            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                        gMap.addMarker(MarkerOptions().position(puntosRuta.first()))
+                        gMap.addMarker(MarkerOptions().position(puntosRuta.last()))
+                        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puntosRuta.first(), 12f))
+
+                    }
+                }
+                2->{
+                    val geocoder = Geocoder(this, Locale.getDefault())
+                    val parada = geocoder.getFromLocationName(editTextList[0].text.toString(), 1)
+                    val parada2 = geocoder.getFromLocationName(editTextList[1].text.toString(), 1)
+                    if(parada.isNullOrEmpty()|| parada2.isNullOrEmpty()) {
+                        showAlert("Campos incorrectos")
+                    }else{
+                        val polylineoptions = PolylineOptions()
+                            .addAll(puntosRuta)
+                            .color(android.graphics.Color.BLUE)
+                            .width(10f)
+                        gMap.clear()
+                        gMap.addPolyline(polylineoptions)
+                        gMap.addMarker(MarkerOptions().position(LatLng(parada[0].latitude, parada[0].longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                        gMap.addMarker(MarkerOptions().position(LatLng(parada2[0].latitude, parada2[0].longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                        gMap.addMarker(MarkerOptions().position(puntosRuta.first()))
+                        gMap.addMarker(MarkerOptions().position(puntosRuta.last()))
+                        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puntosRuta.first(), 12f))
+
+                    }
+
+                }
+                3->{
+                    val geocoder = Geocoder(this, Locale.getDefault())
+                    val parada = geocoder.getFromLocationName(editTextList[0].text.toString(), 1)
+                    val parada2 = geocoder.getFromLocationName(editTextList[1].text.toString(), 1)
+                    val parada3 = geocoder.getFromLocationName(editTextList[2].text.toString(), 1)
+                    if(parada.isNullOrEmpty()|| parada2.isNullOrEmpty() || parada3.isNullOrEmpty()) {//innecesario pero si no no compila porque no sabe que esto se ha tenido que comprobar para llegar aqui
+                        showAlert("Campos incorrectos")
+                    }else{
+                        val polylineoptions = PolylineOptions()
+                            .addAll(puntosRuta)
+                            .color(android.graphics.Color.BLUE)
+                            .width(10f)
+                        gMap.clear()
+                        gMap.addPolyline(polylineoptions)
+                        gMap.addMarker(MarkerOptions().position(LatLng(parada[0].latitude, parada[0].longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                        gMap.addMarker(MarkerOptions().position(LatLng(parada2[0].latitude, parada2[0].longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                        gMap.addMarker(MarkerOptions().position(LatLng(parada3[0].latitude, parada3[0].longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                        gMap.addMarker(MarkerOptions().position(puntosRuta.first()))
+                        gMap.addMarker(MarkerOptions().position(puntosRuta.last()))
+                        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puntosRuta.first(), 12f))
+
+                    }
+                }
+            }
+
         }
     }
 }
