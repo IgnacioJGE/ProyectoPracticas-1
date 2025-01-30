@@ -1,9 +1,7 @@
 package com.example.proyectopracticas
 
-import android.annotation.SuppressLint
 import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -19,6 +17,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -244,11 +243,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         .addAll(puntosRuta)
                         .color(android.graphics.Color.BLUE)
                         .width(10f)
+                    val boundsBuilder = LatLngBounds.Builder()
+                    boundsBuilder.include(puntosRuta.first())//para que se vea toda la ruta en mapa
+                    boundsBuilder.include(puntosRuta.last())
+                    val bounds = boundsBuilder.build()
+                    val borde = 100
                     gMap.clear()
                     gMap.addPolyline(polylineoptions)
                     gMap.addMarker(MarkerOptions().position(puntosRuta.first()))
                     gMap.addMarker(MarkerOptions().position(puntosRuta.last()))
-                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puntosRuta.first(), 12f))
+                    gMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, borde))
                 }
                 1->{
                     val geocoder = Geocoder(this, Locale.getDefault())//no es nada optimo tener que hacer esto dos veces
@@ -260,14 +264,18 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                             .addAll(puntosRuta)
                             .color(android.graphics.Color.BLUE)
                             .width(10f)
-
+                        val boundsBuilder = LatLngBounds.Builder()
+                        boundsBuilder.include(puntosRuta.first())//para que se vea toda la ruta en mapa
+                        boundsBuilder.include(puntosRuta.last())
+                        val bounds = boundsBuilder.build()
+                        val borde = 100
                         gMap.clear()
                         gMap.addPolyline(polylineoptions)
                         gMap.addMarker(MarkerOptions().position(LatLng(parada[0].latitude, parada[0].longitude)).icon(
                             BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
                         gMap.addMarker(MarkerOptions().position(puntosRuta.first()))
                         gMap.addMarker(MarkerOptions().position(puntosRuta.last()))
-                        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puntosRuta.first(), 12f))
+                        gMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, borde))
 
                     }
                 }
@@ -282,13 +290,18 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                             .addAll(puntosRuta)
                             .color(android.graphics.Color.BLUE)
                             .width(10f)
+                        val boundsBuilder = LatLngBounds.Builder()
+                        boundsBuilder.include(puntosRuta.first())//para que se vea toda la ruta en mapa
+                        boundsBuilder.include(puntosRuta.last())
+                        val bounds = boundsBuilder.build()
+                        val borde = 100
                         gMap.clear()
                         gMap.addPolyline(polylineoptions)
                         gMap.addMarker(MarkerOptions().position(LatLng(parada[0].latitude, parada[0].longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
                         gMap.addMarker(MarkerOptions().position(LatLng(parada2[0].latitude, parada2[0].longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
                         gMap.addMarker(MarkerOptions().position(puntosRuta.first()))
                         gMap.addMarker(MarkerOptions().position(puntosRuta.last()))
-                        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puntosRuta.first(), 12f))
+                        gMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, borde))
 
                     }
 
@@ -305,6 +318,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                             .addAll(puntosRuta)
                             .color(android.graphics.Color.BLUE)
                             .width(10f)
+                        val boundsBuilder = LatLngBounds.Builder()
+                        boundsBuilder.include(puntosRuta.first())//para que se vea toda la ruta en mapa
+                        boundsBuilder.include(puntosRuta.last())
+                        val bounds = boundsBuilder.build()
+                        val borde = 100
                         gMap.clear()
                         gMap.addPolyline(polylineoptions)
                         gMap.addMarker(MarkerOptions().position(LatLng(parada[0].latitude, parada[0].longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
@@ -312,7 +330,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         gMap.addMarker(MarkerOptions().position(LatLng(parada3[0].latitude, parada3[0].longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
                         gMap.addMarker(MarkerOptions().position(puntosRuta.first()))
                         gMap.addMarker(MarkerOptions().position(puntosRuta.last()))
-                        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puntosRuta.first(), 12f))
+                        gMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, borde))
 
                     }
                 }
