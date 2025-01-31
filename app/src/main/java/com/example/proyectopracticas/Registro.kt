@@ -20,6 +20,8 @@ class Registro : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro)
         setup()
+        supportActionBar?.hide()
+
     }
     private  fun setup(){
         val  reg_bttn= findViewById<AppCompatButton>(R.id.reg_bttn)

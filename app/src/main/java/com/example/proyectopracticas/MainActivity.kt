@@ -1,5 +1,4 @@
 package com.example.proyectopracticas
-
 import android.location.Geocoder
 import android.os.Bundle
 import android.widget.EditText
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-
+        supportActionBar?.hide()
         val analytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         val  incio= findViewById<AppCompatEditText>(R.id.inicio)
         val tem= findViewById<TextView>(R.id.tiempo)

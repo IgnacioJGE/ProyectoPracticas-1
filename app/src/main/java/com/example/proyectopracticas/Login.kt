@@ -18,7 +18,8 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-       setup()
+        supportActionBar?.hide()
+        setup()
     }
     private  fun setup(){
         val login_bttn = findViewById<AppCompatButton>(R.id.login_bttn)
